@@ -44,6 +44,8 @@ function mergeSourceMaps(inputSourceMap, annotateMap) {
   if (sourceMapEnabled && inputSourceMap) {    
     if (annotateMap) {
       var generator = SourceMapGenerator.fromSourceMap(new SourceMapConsumer(annotateMap));
+      //Should be set to avoid '../../file is not in SourceMap error https://github.com/huston007/ng-annotate-loader/pull/11'
+      inputSourceMap.sourceRoot = '';
       generator.applySourceMap(new SourceMapConsumer(inputSourceMap), filename);
       
       outputSourceMap = generator.toJSON();
